@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Your Name | Portfolio</title>
+    <style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background-color: #000;
+    color: white;
+    display: flex;
+    /* justify-content: center;
+    align-items: center; */
+    height: 100vh;
+    flex-direction: column;
+    padding: 20px;
+    overflow: hidden;
+}
+
+.container {
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    left: 0; /* Anchor to the left side */
+}
+
+.profile-photo {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 5px solid #000000;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+}
+
+.orbit {
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    transform-origin: center;
+    animation: rotate 20s linear infinite; /* Apply smooth rotation */
+}
+
+
+
+
+.button {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    background-color: #333;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.9em;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    line-height: 1.2;
+    transition: background-color 0.3s;
+    z-index: 2;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5); /* Initial glow effect */
+}
+
+.button:hover {
+    background-color: #555;
+    box-shadow: 0 0 20px rgb(69, 227, 255); /* Stronger glow on hover */
+}
+
+/* Glow animation */
+@keyframes glow {
+    0% {
+        box-shadow: 0 0 5px rgba(0, 167, 218, 0.5);
+    }
+    50% {
+        box-shadow: 0 0 20px rgb(94, 209, 255);
+    }
+    100% {
+        box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+    }
+}
+
+.button {
+    /* Existing styles */
+    box-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff; /* Initial glow */
+    transition: background-color 0.3s, box-shadow 0.3s; /* Include box-shadow in transition */
+    margin-top: 100px;
+}
+
+
+
+.button:hover {
+    background-color: #555;
+    box-shadow: 0 0 10px #fff, 0 0 20px #fff; /* Increase glow on hover */
+}
+
+.profile-photo {
+    /* Existing styles */
+    transition: box-shadow 0.5s; /* Smooth transition for shadow */
+    margin-top: 100px;
+}
+
+.glow {
+    box-shadow: 0 0 15px rgba(40, 207, 248, 0.7), 0 0 30px rgba(255, 255, 255, 0.5); /* Glowing effect */
+}
+
+.orbit .button {
+    animation: glow 1.5s infinite; /* Apply glow animation */
+}
+
+
+.text-container {
+    margin-left: 320px; /* Adjust space between the two divs */
+    color: white;
+}
+
+.info,
+.about-me-description,
+.skills-and-technologies,
+.work-experience,
+.certificate {
+    display: none; /* Initially hidden */
+}
+
+.info h1,
+.about-me-description h1,
+.skills-and-technologies h1,
+.work-experience h1 {
+    font-size: 2.5em;
+}
+
+.info p,
+.about-me-description p,
+.skills-and-technologies p,
+.work-experience p {
+    font-size: 1.5em;
+    color: #a7a3a3;
+    margin-bottom: 20px;
+}
+
+.fade {
+    transition: opacity 0.5s ease-in-out;
+    opacity: 1;
+}
+
+.fade-out {
+    opacity: 0;
+}
+
+
+.about-me-container,
+.skills-container,
+.work-container {
+    max-width: 1000px;
+    width: 100%;
+    padding: 150px;
+    border: 2px solid #000000;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+    margin: 20px auto;
+    margin-top: 150px;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 2.5em;
+}
+
+.skill-category,
+.work-experience-item {
+    margin: 10px 0;
+}
+
+.skill-category h2,
+.work-experience-item h2 {
+    font-size: 2em;
+    margin-bottom: 10px;
+    
+}
+
+.work-experience {
+    max-width: 1000px;
+    width: 100%;
+    padding: 80px;
+    border: 2px solid #000000;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+    margin: 20px auto;
+    text-align: center;
+    margin-top: 60px;
+}
+
+.work-experience h1 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    color: #fff;
+}
+
+.work-experience-item {
+    margin-bottom: 20px;
+    text-align: left; /* Align text to the left for better readability */
+}
+
+.work-experience-item h2 {
+    font-size: 2em;
+    margin-bottom: 5px;
+    
+    color: #fff; /* White color for headings */
+}
+
+.work-experience-item p {
+    font-size: 1.2em;
+    color: #999;
+    line-height: 1.5;
+}
+
+.work-experience-item .date {
+    font-weight: bold;
+    color: #fff; /* White color for date */
+}
+
+.work-experience-item ul {
+    list-style-type: disc; /* Use bullet points */
+    padding-left: 20px; /* Indent list items */
+    margin-top: 10px; /* Space above the list */
+}
+
+.work-experience-item li {
+    font-size: 1.1em;
+    color: #ddd; /* Lighter color for list items */
+    line-height: 1.4;
+}
+
+.info {
+    max-width: 1000px; /* Keep the box width manageable */
+    width: 100%;
+    padding: 30px; /* Padding for a more compact look */
+    border: 2px solid #000000;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+    margin: 20px auto;
+    margin-top: 100px; /* Keep margin-top for spacing */
+    display: flex; /* Use flexbox for layout */
+    align-items: flex-start; /* Align items at the start */
+    text-align: left; /* Align text to the left */
+}
+
+.myname {
+    font-size: 2.5em; /* Large heading */
+    font-weight: bold;
+    color: #ffffff;
+    margin-bottom: 20px;
+}
+
+.profile-image {
+    width: 300px; /* Fixed image width */
+    height: 400px; /* Increased image height */
+    object-fit: cover;
+    margin-right: 20px; /* Space between image and text */
+}
+
+h1 {
+    font-size: 3em;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+
+p.intro-text {
+    font-size: 1.5em;
+    margin-top: -220px; /* Move the paragraph upwards */
+    line-height: 1.8;
+    max-width: 600px; /* Limit the paragraph width */
+    margin-bottom: 0; /* Remove bottom margin to keep it aligned */
+    margin-left: auto; /* Center align the text horizontally */
+    text-align: start; /* Align text to the start */
+}
+
+
+
+/* Add these styles to your existing CSS */
+
+/* Initial state before fade-in */
+/* Fade-out class */
+.fade-out {
+    opacity: 1;
+    transition: opacity 1s ease-out;
+    opacity: 0;
+}
+
+/* Fade-in class */
+.fade-in {
+    opacity: 0;
+    transition: opacity 1s ease-in;
+    opacity: 1;
+}
+/* Scroll out from current position (fades out and moves up) */
+/* Slide out from current position (fades out and moves down) */
+/* .scroll-out {
+    opacity: 1;
+    transform: translateY(0); 
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out; 
+    opacity: 0;
+    transform: translateY(100px); 
+}
+
+
+.scroll-in {
+    opacity: 0;
+    transform: translateY(-100px); 
+    transition: opacity 0.5s ease-in, transform 0.5s ease-in; 
+    opacity: 1;
+    transform: translateY(0);
+}
+ */
+
+/* Slide up and down animations */
+@keyframes slideUp {
+    from {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideDown {
+    from {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Scroll out/in animations with direction control */
+.scroll-in.slide-down {
+    animation: slideDown 0.5s forwards;
+}
+
+.scroll-out.slide-down {
+    animation: slideDown 0.5s reverse forwards;
+}
+
+.scroll-in.slide-up {
+    animation: slideUp 0.5s forwards;
+}
+
+.scroll-out.slide-up {
+    animation: slideUp 0.5s reverse forwards;
+}
+
+@media screen and (max-width: 768px) {
+    .container, .orbit {
+        width: 200px;
+        height: 200px;
+    }
+
+    .button {
+        width: 50px;
+        height: 50px;
+    }
+
+    h1 {
+        font-size: 2.5em;
+    }
+
+    .intro-text {
+        font-size: 1.2em;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .container, .orbit {
+        width: 150px;
+        height: 150px;
+    }
+
+    .button {
+        width: 40px;
+        height: 40px;
+    }
+
+    h1 {
+        font-size: 2em;
+    }
+
+    .intro-text {
+        font-size: 1em;
+    }
+}
+
+
+/* Certificatoin page */
+body {
+            font-family: Arial, sans-serif;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+        .certifications-container {
+            max-width: 1000px; /* Match your intro section width */
+            margin: auto;
+            padding: 30px;
+            border: 2px solid #000000;
+            border-radius: 10px;
+            background-color: rgba(255, 255, 255, 0.1); /* Match your intro section */
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+            margin-top: 150px; /* Spacing above */
+        }
+        .certifications-title {
+            text-align: center;
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #ffffff; /* Match your intro section */
+            margin-bottom: 20px;
+        }
+        .certifications-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        .certification-item {
+            background: rgba(255, 255, 255, 0.2); /* Slightly transparent background */
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 5px;
+            font-size: 1.5em; /* Larger text size */
+            color: #ffffff; /* Match your text color */
+        }
+
+        /* Projects */
+
+    /* Projects */
+
+   /* Add styles for the Projects section */
+.project {
+    /* Add styles for the project container */
+    max-width: 1000px;
+    margin: auto;
+    padding: 30px;
+    border: 2px solid #000000;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+    margin-top: 50px;
+    margin-right: 290px;
+}
+
+.projects-container {
+    /* Add styles for the projects container */
+    padding: 30px;
+  
+}
+
+.projects-title {
+    /* Add styles for the projects title */
+    text-align: center;
+    font-size: 2.5em;
+    font-weight: bold;
+    color: #ffffff;
+    margin-bottom: 20px;
+}
+
+.project-item {
+    /* Add styles for the project item */
+    background: rgba(255, 255, 255, 0.2);
+    margin: 10px 0;
+    padding: 15px;
+    border-radius: 5px;
+    color: #ffffff;
+}
+
+.project-link {
+    /* Add styles for the project link */
+    font-size: 1.5em;
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.project-description {
+    /* Add styles for the project description */
+    font-size: 1.2em;
+    color: #ddd;
+}
+
+.info, .about-me-description, .skills-and-technologies, .work-experience, .certificate, .project {
+    display: none;
+}
+
+.info {
+    display: block;
+}
+</style>
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="https://www.shutterstock.com/shutterstock/videos/1053109733/thumb/1.jpg?ip=x480" alt="Your Photo" class="profile-photo glow">
+        <div class="orbit">
+            <div class="button" style="top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(0deg) translateY(-120px);">
+                <a href="https://github.com/yourusername" target="_blank" style="color: white; text-decoration: none;">Rotate me</a>
+            </div>
+            <div class="button" style="top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(90deg) translateY(-120px);">
+                <a href="https://linkedin.com/in/yourusername" target="_blank" style="color: white; text-decoration: none;">Rotate me</a>
+            </div>
+            <div class="button" style="top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(180deg) translateY(-120px);">
+                <a href="mailto:youremail@example.com" style="color: white; text-decoration: none;">Rotate me</a>
+            </div>
+            <div class="button" style="top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(270deg) translateY(-120px);">
+                <a href="#about" style="color: white; text-decoration: none;">Rotate me</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="text-container">
+        <div class="info" id="intro">
+            <h1 class="myname">Kookatati Shree Varun Chandra</h1>
+            <img src="me0.png" alt="Kookatati Shree Varun Chandra" class="profile-image">
+            <div>
+               
+                <p class="intro-text">Hi, I’m Varun! A passionate developer with a keen interest in exploring cutting-edge technologies, building robust software solutions, and constantly learning new things. Let's rotate through this journey of creativity and innovation together!</p>
+            </div>
+        </div>
+        
+        <script>
+            // Optional: Any JavaScript for controlling visibility can go here
+            document.addEventListener('DOMContentLoaded', () => {
+                // For example, you can show the intro content here
+                document.getElementById('intro').style.display = 'block';
+            });
+        </script>
+        <div class="about-me-description about-me-container">
+            <h1>About Me</h1>
+            <p>
+                My name is Kookatati Shree Varun Chandra, and I am currently pursuing a B.Tech in Computer Science with a focus on Cybersecurity.
+            </p>
+
+            <p>
+                A passionate Cybersecurity and IT Operations leader, I am committed to solving complex technical challenges and protecting critical assets. I am adept at managing and securing network infrastructure while ensuring seamless operations across the end-to-end service chain. I have strong expertise in cloud security, vulnerability management, and incident response.
+            </p>
+        </div>
+
+        <div class="skills-and-technologies">
+            <div class="skills-container">
+                <h1>Skills and Technologies</h1>
+                
+                <div class="skill-category">
+                    <h2>Technical Skills</h2>
+                    <div class="skills-list">
+                        <p>JavaScript, Python, Web Services, Bash, HTML, CSS, SQL, MongoDB, Networking, Node.js, Express, Front End, Back End, AWS Cloud, Azure Cloud, Android Studio</p>
+                    </div>
+                </div>
+        
+                <div class="skill-category">
+                    <h2>Additional Skills</h2>
+                    <div class="skills-list">
+                        <p>Analytical Skills, Cybersecurity, Ethical Hacking, Information Assurance, Information Security, Information Technology, Network Security, Penetration Testing, Vulnerability Assessment</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="work-experience">
+            <h1>Work Experience</h1>
+
+            <div class="work-experience-item">
+                <h2>NulICIass</h2>
+                <p class="date">Sep 2024 - Oct 2024</p>
+                <p>Developer and Security Analyst (Intern)</p>
+                <ul>
+                    <li>Developed an OWASP Top 10 educational website, increasing security awareness among 500+ students.</li>
+                    <li>Published 10+ cybersecurity blogs on Medium with over 2,000 reads. Identified and exploited critical OS vulnerabilities using Metasploit and Burp Suite.</li>
+                    <li>Authored a solution guide for OWASP vulnerabilities, enhancing secure development practices.</li>
+                </ul>
+            </div>
+    
+            <div class="work-experience-item">
+                <h2>ShadowFox</h2>
+                <p class="date">Jul 2024 - Aug 2024</p>
+                <p>VAPT and Developer</p>
+                <p>ShadowFox is one of the leading organizers for tech industry development and support.</p>
+                <ul>
+                    <li>Conducted vulnerability assessments and code reviews to identify potential security threats.</li>
+                    <li>Collaborated with development teams to implement cloud security best practices.</li>
+                    <li>Contributed to internal security assessments and maintained compliance using GRC tools.</li>
+                </ul>
+            </div>
+        
+        </div>
+
+        <div class="certificate">
+            <div class="certifications-container">
+                <h1 class="certifications-title">Certifications</h1>
+                <ul class="certifications-list">
+                    <li class="certification-item">Cyber Forensic and Ethical Hacking</li>
+                    <li class="certification-item">Networking Essentials</li>
+                    <li class="certification-item">Mastercard Cybersecurity</li>
+                    <li class="certification-item">Tata Group Cybersecurity Analyst</li>
+                    <li class="certification-item">AIG Shields Up Cybersecurity</li>
+                    <li class="certification-item">Course completion of Basics of Python</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="project">
+        <div class="projects-container">
+            <h1 class="projects-title">Projects</h1>
+            
+            <div class="project-item">
+                <a href="https://github.com/kalivarun/Phishing_detector" class="project-link"><b>Phishing Domain Detector</b></a><br>
+                <p class="project-description">Developed a phishing detection tool with 99% accuracy, analyzing Chrome history to identify malicious websites. Automated alerts notify users of suspicious domains in real time, enhancing browsing security.</p>
+            </div>
+        
+            <div class="project-item">
+                <a href="https://github.com/kalivarun/Owasp-Top-10" class="project-link"><b>OWASP Top 10 Website</b></a><br>
+                <p class="project-description">Developed a web app showcasing OWASP Top 10 vulnerabilities (e.g., SQL Injection, XSS, CSRF) for cybersecurity training. Built using Node.js for backend and HTML, CSS, JavaScript for the frontend.</p>
+            </div>
+        
+            <div class="project-item">
+                <a href="https://github.com/kalivarun/PC_WhatsAppLock" class="project-link"><b>Windows AppLocker</b></a><br>
+                <p class="project-description">Developed a Python security app using facial recognition (via OpenCV) to lock Windows applications if unauthorized users are detected.</p>
+            </div>
+        
+            <div class="project-item">
+                <a href="https://github.com/kalivarun/WIFI_Dev_Remote" class="project-link"><b>Remote Desktop Controller</b></a><br>
+                <p class="project-description">Developed a mobile app for controlling multiple devices over a network using socket connections, allowing simultaneous management of clients via a central server.</p>
+            </div>
+        
+        </div>
+
+    </div>
+    
+
+
+    <div class="contact">
+
+
+
+    </div>
+
+    <script>
+ const orbit = document.querySelector('.orbit');
+const buttons = Array.from(document.querySelectorAll('.button'));
+const container = document.querySelector('.container');
+const containerRect = container.getBoundingClientRect();
+const radius = containerRect.width / 2;
+
+const infoSection = document.querySelector('.info');
+const certificateSection = document.querySelector('.certificate');
+const aboutMeDescriptionSection = document.querySelector('.about-me-description');
+const skillsAndTechnologiesSection = document.querySelector('.skills-and-technologies');
+const workExperienceSection = document.querySelector('.work-experience');
+const projectSection = document.querySelector('.project');
+
+let lastAngle = null;
+let rotationAngle = 0;
+let totalRotation = 0; // Tracks total rotation in degrees
+let innerPageState = 0; // Tracks the current inner page state (0 = about me, 1 = skills and technologies, 2 = work experience)
+
+let isRotating = false; // Track if the buttons are rotating
+let rotationTimeout; // Timeout for detecting rotation end
+
+function updateButtonsPosition() {
+    buttons.forEach((button, index) => {
+        const angle = rotationAngle + (index * 360 / buttons.length);
+        const x = Math.cos(angle * Math.PI / 180) * 130; // Radius of rotation
+        const y = Math.sin(angle * Math.PI / 180) * 130; // Radius of rotation
+        button.style.transform = `translate(-50%, -50%) translate(${x}px, ${y}px)`;
+    });
+}
+
+function handleMouseMove(event) {
+    const mouseX = event.clientX;
+    const mouseY = event.clientY;
+    const centerX = containerRect.left + radius;
+    const centerY = containerRect.top + radius;
+
+    const angle = Math.atan2(mouseY - centerY, mouseX - centerX) * 180 / Math.PI;
+
+    if (lastAngle !== null) {
+        let angleDifference = angle - lastAngle;
+
+        // Normalize the angle difference
+        if (angleDifference > 180) angleDifference -= 360;
+        if (angleDifference < -180) angleDifference += 360;
+
+        if (angleDifference !== 0) {
+            isRotating = true;
+
+            clearTimeout(rotationTimeout);
+            rotationTimeout = setTimeout(() => {
+                isRotating = false;
+                document.querySelector('.profile-photo').classList.remove('glow');
+                buttons.forEach(button => button.style.boxShadow = '0 0 20px rgb(94, 209, 255);');
+            }, 200);
+        }
+
+        rotationAngle += angleDifference;
+        totalRotation += angleDifference;
+
+        if (Math.abs(totalRotation) >= 360) {
+            const previousState = innerPageState; // Store the previous state
+            innerPageState = (innerPageState + (totalRotation > 0 ? 1 : -1) + 6) % 6;
+            totalRotation = 0;
+
+            // Trigger the page switch with animation
+            switchPageWithAnimation(previousState, innerPageState);
+        }
+    }
+
+    lastAngle = angle;
+    updateButtonsPosition();
+
+    // Add glow effect while rotating
+    if (isRotating) {
+        document.querySelector('.profile-photo').classList.add('glow');
+        buttons.forEach(button => button.style.boxShadow = '0 0 10px #fff, 0 0 20px #fff');
+    }
+}
+
+function switchPageWithAnimation(previousState, newState) {
+    // Sections array for easy reference
+// Hide all sections initially, except for the first section
+const sections = [
+    infoSection,
+    aboutMeDescriptionSection,
+    skillsAndTechnologiesSection,
+    workExperienceSection,
+    certificateSection,
+    projectSection,
+];
+
+sections.forEach((section, index) => {
+    if (index !== 0) {
+        section.style.display = 'none';
+    }
+});
+
+    console.log(`Switching from ${previousState} to ${newState}`);
+
+    // Determine sliding direction (up or down) based on rotation angle
+    const slideDirection = totalRotation > 0 ? 'slide-down' : 'slide-up';
+
+    // Scroll out the previous section
+    sections[previousState].classList.add('scroll-out', slideDirection);
+    
+ // After scroll-out completes, hide the previous section and scroll in the new one
+    setTimeout(() => {
+        sections[previousState].style.display = 'none';
+        sections[previousState].classList.remove('scroll-out', slideDirection);
+
+        // Show the new section
+        sections[newState].style.display = 'block';
+        sections[newState].classList.add('scroll-in', slideDirection);
+
+        // Remove scroll-in after transition
+        setTimeout(() => {
+            sections[newState].classList.remove('scroll-in', slideDirection);
+        }, 500); // Match this time with the CSS transition duration
+    }, 500); // Match this time with the CSS transition duration
+}
+
+document.addEventListener('mousemove', handleMouseMove);
+
+
+    </script>
+</body>
+</html>
