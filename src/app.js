@@ -15,6 +15,20 @@ app.use(express.static(path.join(__dirname, '..', 'public')));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+app.get('/contacts', (req, res) => {
+    const filePath = path.join(__dirname, 'public', 'contact.txt');
+    
+    // Read the file
+    fs.readFile(filePath, 'utf8', (err, data) => {
+        if (err) {
+            return res.status(500).send('Error reading file');
+        }
+        
+        // Send file content as response
+        res.send(`<pre>${data}</pre>`);
+    });
+});
+
 
 app.use((req, res) => {
     res.status(404).send('Page Not Found');
