@@ -28,8 +28,17 @@ app.get('/contacts', (req, res) => {
         res.send(`<pre>${data}</pre>`);
     });
 });
-
-
+// new addeed line 
+app.get('/earth', (req,res) => {
+      const filePath = path.join(__dirname, 'public', 'contact.txt');
+    
+    // Read the file
+    fs.readFile(filePath, 'utf8', (err, data) => {
+        if (err) {
+            return res.status(500).send('Error reading file');
+        }
+    
+// end of new line 
 app.use((req, res) => {
     res.status(404).send('Page Not Found');
 });
