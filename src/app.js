@@ -30,7 +30,7 @@ app.get('/contacts', (req, res) => {
 });
 // new addeed line 
 app.get('/earth', (req,res) => {
-      const filePath = path.join(__dirname, 'public', 'contact.txt');
+      const filePath = path.join(__dirname, 'public', 'earth.jpg');
     
     // Read the file
     fs.readFile(filePath, 'utf8', (err, data) => {
